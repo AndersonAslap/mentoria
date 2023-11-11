@@ -128,7 +128,7 @@ class Pinguim extends Ave {
 
 - **Interface Segregation Principle (ISP):** Uma classe não deve ser forçada a implementar interfaces que ela não usa.
 
-```js
+```ts
 // Interface para dispositivos que podem imprimir
 class Imprimivel {
     imprimir() {
@@ -150,6 +150,21 @@ class Scanner {
     }
 }
 
+
+interface UpdateAndDelete {
+    update();
+    delete();
+}
+
+interface CreateAndRead {
+    create();
+    read();
+}
+
+class todo implements CreateAndRead, UpdateAndDelete {}
+
+class people implements CreateAndRead {}
+
 /**
  * 
  * Neste exemplo, Scanner não precisa implementar a interface Imprimivel, pois não tem a capacidade de imprimir. Cada classe 
@@ -160,10 +175,10 @@ class Scanner {
 
 - **Dependency Inversion Principle (DIP):** Módulos de alto nível não devem depender de módulos de baixo nível; ambos devem depender de abstrações.
 
-```js
+```ts
 // Módulo de alto nível dependendo de uma abstração
 class GerenciadorDePagamento {
-    constructor(processadorDePagamento) {
+    constructor(processadorDePagamento: ProcessadorPagamento) {
         this.processadorDePagamento = processadorDePagamento;
     }
 
@@ -172,8 +187,18 @@ class GerenciadorDePagamento {
     }
 }
 
+interface ProcessadoPagamento {
+    processa(): void;
+}
+
 // Módulo de baixo nível implementando a abstração
-class ProcessadorDePagamento {
+class ProcessadorDePagamento1 implements ProcessadorPagamento {
+    processar() {
+        console.log('Processando pagamento...');
+    }
+}
+
+class ProcessadorDePagamento2 implements ProcessadorPagamento {
     processar() {
         console.log('Processando pagamento...');
     }
