@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import { CreateDriver } from './application/usecases/driver/create-driver';
 import { CreateCars } from './application/usecases/cars/create-cars';
 import { Available } from './application/usecases/driver/available';
+import { GetAllDrivers } from './application/usecases/driver/get-all-drivers';
 
 const PORT = 3000;
 const server = express();
@@ -12,6 +13,16 @@ const db: any = {
     'drivers': [],
     'cars': []
 };
+
+server.get('/drivers', async (request: Request, response: Response) => {
+    try {
+        const usecase = new GetAllDrivers(db);
+        const drivers = await usecase.execute();
+        return response.json({drivers});
+    } catch (error: any) {
+        return response.status(400).json({message: error.message});
+    }
+});
 
 server.post('/drivers', async (request: Request, response: Response) => {
     try {

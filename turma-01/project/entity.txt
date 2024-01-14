@@ -1,0 +1,28 @@
+CLEAN ARCHITECTURE
+
+Na arquitetura limpa (Clean Architecture), a camada de entidade é responsável por representar as entidades centrais do domínio da aplicação. 
+Essas entidades são objetos que encapsulam o estado e o comportamento essenciais para o negócio da aplicação. 
+Em termos simples, as entidades representam os principais conceitos e dados com os quais a aplicação trabalha.
+
+A camada de entidade é uma parte central e independente da lógica de negócios da aplicação. 
+Ela não deve depender de detalhes de implementação, como o banco de dados ou a interface do usuário. 
+Isso significa que as entidades não devem conter lógica de infraestrutura ou código específico de uma tecnologia em particular.
+
+Ao manter as entidades isoladas e independentes, a arquitetura limpa busca garantir a flexibilidade e a testabilidade do código, 
+facilitando a manutenção e evolução da aplicação ao longo do tempo.
+
+
+DDD
+
+No Domain-Driven Design (DDD), as entidades são objetos que possuem uma identidade única e são definidas por seu estado mutável ao longo do tempo. 
+Essas entidades representam conceitos fundamentais e significativos para o domínio da aplicação. Aqui está uma descrição simples:
+
+Entidades no DDD são como os heróis principais da história da sua aplicação. Elas têm características que as tornam únicas e, 
+mais importante, elas mudam com o tempo. Pense em um objeto do mundo real que você está modelando no seu software - uma pessoa, um pedido, um carro. 
+Esses são bons candidatos a serem entidades. Elas têm uma identidade que persiste, independentemente das mudanças em seus atributos.
+
+Por exemplo, se você tem uma entidade "Cliente", ela pode ter atributos como nome, endereço, e-mail, etc. 
+O crucial é que mesmo se o endereço do cliente mudar, ele ainda é o mesmo cliente.
+
+As entidades no DDD são uma maneira de modelar o núcleo do seu domínio, capturando o que é realmente importante para o seu negócio e permitindo que você
+ trabalhe com esses conceitos de forma eficaz no código.

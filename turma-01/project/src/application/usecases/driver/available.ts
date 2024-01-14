@@ -1,18 +1,21 @@
-export class Available {
+import { Car } from "../../../domain/car";
+import { UseCase } from "../contract/iuse-case";
+
+// deixar carro disponível
+export class Available implements UseCase {
 
     constructor(readonly db: any) {}
 
     async execute(input: Input) : Promise<void> {
         const { driver_id, car_id } = input;
-        const carExists = this.db.cars.find((car: any) => car.car_id === car_id);
-        
-        if (!carExists) throw new Error('Car does not exists');
 
-        const carBelongsToDriver = this.db.cars.find((car: any) => car.car_id === car_id && car.driver_id === driver_id);
+        const car = this.db.cars.find((car: Car) => car.id === car_id) as Car | undefined;
+        if (!car) throw new Error('Car does not exists');
+
+        const carBelongsToDriver = this.db.cars.find((car: Car) => car.id === car_id && car.driverId === driver_id);
         if (!carBelongsToDriver) throw new Error('This car does not belongs to this driver');
 
-        const index = this.db.cars.findIndex((car: any) => car.car_id === car_id);
-        this.db.cars[index].avaliable = true;
+        car.avaliable();
     }
 }
 

@@ -1,31 +1,28 @@
-import { v4 as uuid } from 'uuid';
+import { Driver, DriverProps } from '../../../domain/driver';
+import { UseCase } from '../contract/iuse-case';
 
-export class CreateDriver {
+export class CreateDriver implements UseCase {
 
     constructor(readonly db: any) {}
 
     async execute(input: Input) : Promise<Output> {
-        if (!input.name) throw new Error('Name is required');
-        if (!input.email) throw new Error('Email is required');
-        if (!input.password) throw new Error('Password is required');
+        const { name, email, password } = input;
+
+        const props: DriverProps = {
+            name,
+            email,
+            password
+        }
+
+        const driver = new Driver(props);
 
         const driverAlreadyExists = this.db.drivers.find((driver: any) => driver.email === input.email);
         if (driverAlreadyExists) throw new Error('Email already exists');
 
-        const driver = {
-            driver_id: uuid(),
-            name: input.name,
-            email: input.email,
-            password: input.password,
-            disponible: false,
-            createdAt: new Date(),
-            updatedAt: new Date()
-        }
-
         this.db.drivers.push(driver);
 
         return {
-            driver_id: driver.driver_id
+            driver_id: driver.id
         }
     }
 }
